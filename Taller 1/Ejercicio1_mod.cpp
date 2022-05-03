@@ -41,7 +41,7 @@ void proceso(int N){
 		delete []a;
 	}
 	
-	cout << "Si N = "<< N << ", el tamanio es: " << tamanio << endl;
+	cout << "Si N = " << N << ", el tamanio es: " << tamanio << endl;
 }
 int main(){
 	proceso(50);
