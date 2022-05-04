@@ -44,9 +44,8 @@ void proceso(int N){
 	cout << "Si N = " << N << ", el tamanio es: " << tamanio << endl;
 }
 int main(){
-	proceso(50);
-	proceso(100);
-	proceso(150);
-	proceso(200);
-	proceso(1000);
+	int i;
+	for(i=0; i<=1000; i=i+50) {
+		proceso(i);
+	}
 }

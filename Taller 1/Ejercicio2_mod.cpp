@@ -17,23 +17,38 @@ void proceso(int N){
 	
 	int tamanio = 0;
 	
-	int i, j, **a;
+	int i, j, **a;// **a = int [N][N];
 
 	tamanio += sizeof(i) + sizeof(j) + sizeof(**a);
 	
+	//imprimirTamanio("a",a);
+	
 	
 	a = new int *[N];
-	imprimirTamanio("a**", **a);
+	//imprimirTamanio("a*",*a);
+	tamanio += sizeof(*a);
+	//imprimirTamanio("a**",**a);
+	
 	
 	for(i = 0; i < N; i++){
+			
 		a[i] = new int [N];
+		tamanio +=sizeof(a[i]);
 		//imprimirTamanio("a**", a[i]);
-		for(j=0;j<N;j++)
+		
+		for(j=0;j<N;j++){
 			a[i][j] = j*i;
+			tamanio += sizeof(a[i][j]);
+		}
+			
 	}
 	for(i = 0; i < N; i++){
-		//for(j=0;j<N;j++)
-		//	cout << a[i][j];
+		//for(j=0;j<N;j++){
+			//cout << "Tamaño de a[" << i << "][" << j << "]" << sizeof(a[i][j]) << endl;
+			//	cout << a[i][j];
+		//}
+		
+		
 		delete a[i];
 	}
 	delete []a;
@@ -43,5 +58,8 @@ void proceso(int N){
 }
 
 int main(){
-	proceso(50);	
+	int i;
+	for(i=0; i<=1000; i=i+50) {
+		proceso(i);
+	}
 }
