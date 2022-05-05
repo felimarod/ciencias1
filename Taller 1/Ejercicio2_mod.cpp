@@ -3,62 +3,41 @@
 
 using namespace std;
 
-void imprimirTamanio(string nombre, int a){
-	cout << "Tamanio de " << nombre <<" : " << sizeof(a) << endl;
-}
-void imprimirTamanio(string nombre, int* a){
-	cout << "Tamanio de " << nombre <<" : " << sizeof(a) << endl;
-}
-void imprimirTamanio(string nombre, int** a){
-	cout << "Tamanio de " << nombre <<" : " << sizeof(a) << endl;
-}
-
 void proceso(int N){
 	
-	int tamanio = 0;
-	
-	int i, j, **a;// **a = int [N][N];
+	int tamanio, espacio;
+	int i, j, **a;
 
-	tamanio += sizeof(i) + sizeof(j) + sizeof(**a);
-	
-	//imprimirTamanio("a",a);
-	
+	tamanio = sizeof(N) + sizeof(i) + sizeof(j) + sizeof(**a);
+	espacio = 4;
 	
 	a = new int *[N];
-	//imprimirTamanio("a*",*a);
+	
 	tamanio += sizeof(*a);
-	//imprimirTamanio("a**",**a);
-	
-	
-	for(i = 0; i < N; i++){
-			
+		
+	for(i = 0; i < N; i++){	
 		a[i] = new int [N];
-		tamanio +=sizeof(a[i]);
-		//imprimirTamanio("a**", a[i]);
+		
+		tamanio += sizeof(a[i]);
+		espacio += 1;
 		
 		for(j=0;j<N;j++){
 			a[i][j] = j*i;
-			tamanio += sizeof(a[i][j]);
-		}
 			
+			tamanio += sizeof(a[i][j]);
+			espacio += 1;
+		}
 	}
-	for(i = 0; i < N; i++){
-		//for(j=0;j<N;j++){
-			//cout << "Tamaño de a[" << i << "][" << j << "]" << sizeof(a[i][j]) << endl;
-			//	cout << a[i][j];
-		//}
-		
-		
+	for(i = 0; i < N; i++)		
 		delete a[i];
-	}
 	delete []a;
 	
-	cout << "Si N = " << N << ", el tamanio es: " << tamanio << endl;
-	
+	cout << N << "\t"<< espacio << "\t" << tamanio << endl;
 }
 
 int main(){
 	int i;
+	cout << "N\tEspacio\tTamanio"<< endl;
 	for(i=0; i<=1000; i=i+50) {
 		proceso(i);
 	}
