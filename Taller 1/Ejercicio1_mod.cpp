@@ -10,7 +10,7 @@ void proceso(int N){
 	int i, j, *a;
 	
 	tamanio = sizeof(N) + sizeof(i) + sizeof(j) + sizeof(*a) + sizeof(a);
-	espacioReservado = 5;
+	espacioReservado = 4;
 		
 	for(i=0;i<N;i++){
 		a = new int [N];
@@ -36,7 +36,7 @@ void proceso(int N){
 int main(){
 	int i;
 	cout << "N\tEspacio\tTamanio"<< endl;
-	for(i=0; i<=1000; i=i+50) {
+	for(i=50; i<=1000; i=i+50) {
 		proceso(i);
 	}	
 }

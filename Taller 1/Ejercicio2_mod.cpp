@@ -38,7 +38,7 @@ void proceso(int N){
 int main(){
 	int i;
 	cout << "N\tEspacio\tTamanio"<< endl;
-	for(i=0; i<=1000; i=i+50) {
+	for(i=50; i<=1000; i=i+50) {
 		proceso(i);
 	}
 }
