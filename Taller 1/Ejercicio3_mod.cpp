@@ -16,7 +16,7 @@ int proceso(int N){
 	espacio = 3;
 	
 	nodo *cab = NULL, *Aux;
-	tamanio+= sizeof(*cab) + sizeof(*Aux);
+	tamanio+= sizeof(cab) + sizeof(Aux);
 	espacio += 2;
 	
 	for(i=0; i<N; i++){
