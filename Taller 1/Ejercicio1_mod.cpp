@@ -9,7 +9,7 @@ void proceso(int N){
 	
 	int i, j, *a;
 	
-	tamanio = sizeof(N) + sizeof(i) + sizeof(j) + sizeof(*a) + sizeof(a);
+	tamanio = sizeof(N) + sizeof(i) + sizeof(j) + sizeof(a);
 	espacioReservado = 4;
 		
 	for(i=0;i<N;i++){
@@ -27,7 +27,7 @@ void proceso(int N){
 		}
 		
 		//cout << *(a + 49) << endl;
-		//printf("Tamaño del arreglo en bytes %d\n",sizeof(a));
+		//printf("TamaÃ±o del arreglo en bytes %d\n",sizeof(a));
 		delete []a;
 	}
 	
