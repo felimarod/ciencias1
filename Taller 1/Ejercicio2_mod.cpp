@@ -8,7 +8,7 @@ void proceso(int N){
 	int tamanio, espacio;
 	int i, j, **a;
 
-	tamanio = sizeof(N) + sizeof(i) + sizeof(j) + sizeof(**a);
+	tamanio = sizeof(N) + sizeof(i) + sizeof(j) + sizeof(a);
 	espacio = 4;
 	
 	a = new int *[N];
