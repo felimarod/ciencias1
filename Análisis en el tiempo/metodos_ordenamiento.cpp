@@ -3,8 +3,6 @@
 
 using namespace std;
 
-unsigned t0, t1;
-
 void intercambio(int a[], int pos1, int pos2) {
 
 }
@@ -19,8 +17,29 @@ void seleccion(int a[], int N) {
     intercambio(a, min, j);
   }
 }
+void insercion(int a[], int N){
+  int i,j; int v;
+  for (i=2; i<=N; i++) {
+    j=i;
+    v=a[j];
+    while(a[j-1]>v && j>1) {
+      a[j]=a[j-1];
+      j--;
+    }
+    a[j]= v;
+  }
+}
+
+void burbuja(int a[], int N){
+  int i,j;
+  for (i=N; i>=1; i--)
+    for(j=2; j<=i; j++)
+      if(a[j-1]> a[j]) 
+        intercambio(a,j-1,j);
+}
 
 int main(int argc, char *argv[]) { 
+  unsigned t0, t1;
   t0=clock();
   // Code to execute
   t1 = clock();
