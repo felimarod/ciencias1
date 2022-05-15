@@ -7,16 +7,24 @@ void intercambio(int a[], int pos1, int pos2) {
 
 }
 
+
 void seleccion(int a[], int N) {
   int i, j, min;
-  for (i = 1; i < N; i++) {
+  int aux;
+  for (i = 0; i < N; i++) {
     min = i;
-    for (j = i + 1; j <= N; j++)
-      if (a[j] < a[min])
+    for (j = i + 1; j < N; j++){
+      if (a[j] < a[min]){
         min = j;
-    intercambio(a, min, j);
+	  }
+	}
+    aux = a[i];
+    a[i] = a[min];
+    a[min] = aux;
   }
 }
+
+
 void insercion(int a[], int N){
   int i,j;
   int v;
@@ -31,29 +39,30 @@ void insercion(int a[], int N){
   }
 }
 
+
 void burbuja(int a[], int N){
   int i,j;
-  for (i=N; i>=1; i--)
-    for(j=2; j<=i; j++)
-      if(a[j-1]> a[j]) 
+  for (i=N; i>=1; i--){
+    for(j=2; j<=i; j++){
+      if(a[j-1]> a[j])
         intercambio(a,j-1,j);
+	}
+  }
 }
 
 
 
 int main(int argc, char *argv[]) { 
   unsigned t0, t1;
-  int N = 100;
+  int N = 50;
   int a[N];
   
   for(int j=N; j>0; j--){
   	a[N-j] = j;
-  	cout<<a[N-j]<<endl;
   }
-  cout<<endl;
   t0=clock();
   // Code to execute
-  insercion(a, N);
+  burbuja(a, N);
   
   for(int j=0; j<N; j++){
   	cout<<a[j]<<endl;
