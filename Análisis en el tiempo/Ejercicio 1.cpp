@@ -3,11 +3,6 @@
 
 using namespace std;
 
-void intercambio(int a[], int pos1, int pos2) {
-
-}
-
-
 void seleccion(int a[], int N) {
   int i, j, min;
   int aux;
@@ -42,10 +37,14 @@ void insercion(int a[], int N){
 
 void burbuja(int a[], int N){
   int i,j;
-  for (i=N; i>=1; i--){
-    for(j=2; j<=i; j++){
-      if(a[j-1]> a[j])
-        intercambio(a,j-1,j);
+  int aux;
+  for (i=N-1; i>=1; i--){
+    for(j=1; j<=i; j++){
+      if(a[j-1]> a[j]){
+        aux = a[j];
+        a[j] = a[j-1];
+        a[j-1] = aux;
+	  }
 	}
   }
 }
