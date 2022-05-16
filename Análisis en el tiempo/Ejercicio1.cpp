@@ -1,5 +1,6 @@
-#include <ctime>
 #include <iostream>
+#include <stdio.h>
+#include <time.h>
 
 using namespace std;
 
@@ -48,19 +49,26 @@ void burbuja(int a[], int N) {
 }
 
 void proceso(int N) {
-  unsigned t0, t1;
   int a[N];
   for (int j = N; j > 0; j--) {
     a[N - j] = j;
   }
-  t0 = clock();
-  seleccion(a, N);
-  // insercion(a, N);
-  //  burbuja(a, N);
-  t1 = clock();
 
-  double time = (double(t1 - t0) / CLOCKS_PER_SEC);
-  cout << N << "\t" << time << endl;
+  // Start measuring time
+  struct timespec begin, end;
+  clock_gettime(CLOCK_REALTIME, &begin);
+
+  // seleccion(a, N);
+  //  insercion(a, N);
+  burbuja(a, N);
+
+  // Stop measuring time and calculate the elapsed time
+  clock_gettime(CLOCK_REALTIME, &end);
+  long seconds = end.tv_sec - begin.tv_sec;
+  long nanoseconds = end.tv_nsec - begin.tv_nsec;
+  double elapsed = seconds + nanoseconds * 1e-9;
+
+  cout << N << "\t" << elapsed << endl;
 }
 
 int main(int argc, char *argv[]) {
