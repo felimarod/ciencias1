@@ -1,8 +1,16 @@
 #include <iostream>
 #include <stdio.h>
-#include <time.h>
+#include <windows.h>
 
 using namespace std;
+
+/* retorna "a - b" en segundos */
+double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b)
+{
+  LARGE_INTEGER freq;
+  QueryPerformanceFrequency(&freq);
+  return (double)(a->QuadPart - b->QuadPart) / (double)freq.QuadPart;
+}
 
 void seleccion(int a[], int N) {
   int i, j, min;
@@ -49,31 +57,30 @@ void burbuja(int a[], int N) {
 }
 
 void proceso(int N) {
+	LARGE_INTEGER t_ini, t_fin;
+  double segundos;
   int a[N];
   for (int j = N; j > 0; j--) {
     a[N - j] = j;
   }
 
-  // Start measuring time
-  struct timespec begin, end;
-  clock_gettime(CLOCK_REALTIME, &begin);
+	
 
+	QueryPerformanceCounter(&t_ini);
+	
   // seleccion(a, N);
   //  insercion(a, N);
   burbuja(a, N);
 
-  // Stop measuring time and calculate the elapsed time
-  clock_gettime(CLOCK_REALTIME, &end);
-  long seconds = end.tv_sec - begin.tv_sec;
-  long nanoseconds = end.tv_nsec - begin.tv_nsec;
-  double elapsed = seconds + nanoseconds * 1e-9;
-
-  cout << N << "\t" << elapsed << endl;
+  QueryPerformanceCounter(&t_fin);
+  segundos = performancecounter_diff(&t_fin, &t_ini);
+  
+  printf("%d\t%.16g\n", N, segundos * 1000.0);
 }
 
 int main(int argc, char *argv[]) {
   int i;
-  cout << "N\tTiempo" << endl;
+  printf("N\tTiempo\n");
   for (i = 50; i <= 500; i = i + 50) {
     proceso(i);
   }
