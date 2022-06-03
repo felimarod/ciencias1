@@ -17,7 +17,7 @@ string arrayToString(int a[], int tam) {
 }
 void ordenrapido(int a[], int izq, int der) {
   int i, j, v, aux = 0;
-  std::cout << arrayToString(a, 20) << std::endl;
+  //std::cout << arrayToString(a, 20) << std::endl;
   if (der > izq) {
     v = a[der];
     i = izq - 1;
@@ -34,8 +34,8 @@ void ordenrapido(int a[], int izq, int der) {
       a[j] = aux;
     }
     aux = a[i];
-    a[i] = a[j];
-    a[j] = aux;
+    a[i] = a[der];
+    a[der] = aux;
     ordenrapido(a, izq, i - 1);
     ordenrapido(a, i + 1, der);
   }
@@ -63,9 +63,9 @@ void proceso(int N) {
 int main(int argc, char *argv[]) {
   int i;
   printf("N\tTiempo\n");
-  proceso(20);
-  //for (i = 50; i <= 1000; i = i + 50) {
-    //proceso(i);
-  //}
+  //proceso(20);
+  for (i = 50; i <= 1000; i = i + 50) {
+    proceso(i);
+  }
   return 0;
 }

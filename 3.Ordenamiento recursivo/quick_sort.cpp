@@ -27,8 +27,8 @@ void ordenrapido(int a[], int izq, int der){
 	    	a[j] = aux;
 		}
 	 	aux = a[i];
-	    a[i] = a[j];
-	    a[j] = aux;
+    a[i] = a[der];
+    a[der] = aux;
 	 	ordenrapido(a, izq, i-1);
 	 	ordenrapido(a, i+1,der);
 	}
