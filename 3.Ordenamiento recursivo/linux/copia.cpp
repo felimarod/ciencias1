@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string.h>
 
-int const MAX=1000;
-int N = 1000;
+int const MAX=100;
+int N = 50;
 int *A, **C;
 
 using namespace std;
@@ -10,9 +10,10 @@ using namespace std;
 string arrayToString(int[], int);
 void radixSort(int);
 void proceso();
-//void imprimir();
+void imprimir();
 
 int main() {
+  N=1000;
   proceso();
    //for (; N <= 1000; N+=50) 
      //proceso();
@@ -23,25 +24,24 @@ int main() {
 
   return 0;
 }
-//void imprimir() {
-  //std::cout << "Imprimiendo lista" << std::endl;
-  //for (int i = 0; i < MAX; ++i) {
-    //std::cout << A[i] << "\t";
-  //}
-  //cout << endl;
-//}
-string arrayToString(int a[], int tam) {
-  string aux = "";
-  for (int i = 0; i < tam; i++) {
-    if (i < tam - 1) {
-      aux += to_string(a[i]);
-      aux += ", ";
-    } else {
-      aux += to_string(a[i]);
-    }
-  }
-  return aux;
+void imprimir() {
+  std::cout << "Imprimiendo lista" << std::endl;
+  for (int i = 0; i < N; ++i)
+    std::cout << A[i] << "\t";
+  cout << endl;
 }
+//string arrayToString(int a[], int tam) {
+  //string aux = "";
+  //for (int i = 0; i < tam; i++) {
+    //if (i < tam - 1) {
+      //aux += to_string(a[i]);
+      //aux += ", ";
+    //} else {
+      //aux += to_string(a[i]);
+    //}
+  //}
+  //return aux;
+//}
 
 void proceso() {
   unsigned t0, t1;
@@ -52,17 +52,17 @@ void proceso() {
     C[i] = new int[10];
   }
 
-  for (int j = N; j > 0; j--) {
-    A[N - j] = j;
+  for (int i = 0; i < N; i++) {
+    A[i] = N-i -1;
   }
-   std::cout << arrayToString(A, N) << std::endl;
-  //imprimir();
+   //std::cout << arrayToString(A, N) << std::endl;
+  imprimir();
   t0 = clock();
   radixSort(10);
 
   t1 = clock();
-   std::cout << arrayToString(A, N) << std::endl;
-  //imprimir();
+   //std::cout << arrayToString(A, N) << std::endl;
+  imprimir();
 
   delete []A;
   double time = (double(t1 - t0) / CLOCKS_PER_SEC);

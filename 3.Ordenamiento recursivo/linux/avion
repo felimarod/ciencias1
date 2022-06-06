@@ -1,8 +1,29 @@
 #!/bin/python
 
-# 1) 10
-# 2) 10
-# 3) 10
-for i in range(1,1001):
-    if  ¿
-	print(i, end="\t")
+import math
+# count = 0
+# for i in range(1,1001):
+    # num = str(i)
+    # for j in range (0, 10):
+        # print(f"numero{j}")
+        # if num[-1] == str(j):
+            # print(i, end="\t")
+            # count+=1
+# num_probado = 1
+# num_digitos = int(input("Ingrese la cantidad de digitos: "))
+num_digitos = 3
+# print(str(math.num_digitos))
+# 1000000000
+for posicion in range(0,num_digitos):
+    for num_probado in range(0,10):
+        count = 0
+        for i in range(0,1000):
+            num = str(i)
+            try:
+                if num[-posicion -1] == str(num_probado):
+                    # print(i, end="\t")
+                    count+=1
+            except Exception as e:
+                if num_probado == 0:
+                    count+=1
+        print(f"\nEN LA POSICIÓN {posicion}\tEl número {num_probado}\t tiene {count} numeros")
