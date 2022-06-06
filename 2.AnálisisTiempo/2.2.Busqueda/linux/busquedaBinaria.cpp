@@ -2,23 +2,6 @@
 
 using namespace std;
 
-void busquedaSecuencial(int A[], int n){
-  int num = n, posicion = 0;
-
-  //cout << "Ingrese el numero que desea buscar: ";
-  //cin >> num;
-
-  while (posicion < n && A[posicion] != num) {
-    posicion++;
-  }
-  //if(A[posicion] == num){
-    //cout << "El número se encuentra en la posición: " << posicion << endl;
-  //} else {
-    //cout << "No se encontro el número " << num << " en el arreglo" << endl;
-  //}
-  
-}
-
 void busquedaBinaria(int A[], int n){
   int num = 0, primero, ultimo, medio;
 
@@ -51,7 +34,6 @@ double proceso(int N) {
   }
 
   t0 = clock();
-  //busquedaSecuencial(a, N);
   busquedaBinaria(a, N);
   t1 = clock();
 

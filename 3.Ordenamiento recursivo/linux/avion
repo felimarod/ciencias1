@@ -1,0 +1,8 @@
+#!/bin/python
+
+# 1) 10
+# 2) 10
+# 3) 10
+for i in range(1,1001):
+    if  ¿
+	print(i, end="\t")
