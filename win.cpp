@@ -4,6 +4,7 @@
 #include "2.Ordenamiento Iterativo/ordenIterativo.cpp"
 #include "3.Busqueda/busqueda.cpp"
 #include "4.Ordenamiento Recursivo/ordenRecursivo.cpp"
+#include "5.P&NP/n-reinas/"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ double performancecounter_diff(LARGE_INTEGER *a, LARGE_INTEGER *b) {
   QueryPerformanceFrequency(&freq);
   return (double)(a->QuadPart - b->QuadPart) / (double)freq.QuadPart;
 }
-//double suma; for (i = 50; i <= 500; i = i + 50) { suma = 0; Diferentes procesos... cout << i << "\t" << suma / double(10) << endl; }
+
 int main() {
   int *a;
   LARGE_INTEGER t_ini, t_fin;
@@ -42,6 +43,9 @@ int main() {
      * quickSort(a, 0, N - 1)
      * radixSort(a, N, 10);
      */
+    /* Problemas P & NP 
+     * 
+     * */
     QueryPerformanceCounter(&t_fin);
 
     cout << N << "\t" << performancecounter_diff(&t_fin, &t_ini) << endl;
