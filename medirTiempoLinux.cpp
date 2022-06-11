@@ -33,9 +33,7 @@ int main() {
   cout << "N\tTiempo(segundos)" << endl;
   for (; N <= 10; N++) {
     crearYLlenarArreglo();
-
-    std::cout << "hola" << N << std::endl;
-
+    //std::cout << "hola" << N << std::endl;
     t0 = clock(); // Toma el tiempo de inicio
     /* Algoritmos de ordenamiento iterativos
      *  burbuja(a, N);
@@ -53,10 +51,10 @@ int main() {
      * radixSort(a, N, 10);
      */
     /* Algoritmos para el análisis de problemas P y NP
-     * solucionNReinas(a,N);
+     * NReinas(a,N);
+     * Hanoi(N, 'A', 'B', 'C');
      */
-    //NReinas(a, N);
-    hanoi()
+     Hanoi(N, 'A', 'B', 'C');
     t1 = clock(); // Toma el tiempo de finalización
 
     delete a;
