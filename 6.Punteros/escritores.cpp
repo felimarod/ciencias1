@@ -3,12 +3,11 @@
 
 using namespace std;
 
-char *Esc[] = {"Pablo Neruda", "Juan Rulfo", "Ernesto Sábato",
-               "Alfonsina Storni"};
+char *Esc[] = {"Pablo Neruda", "Juan Rulfo", "Ernesto Sábato", "Alfonsina Storni"};
 char **ApEsc[] = {Esc + 1, Esc, Esc + 3, Esc + 2};
 char ***apfin = ApEsc + 1;
 
-int main(int argc, char *argv[]) {
+int main() {
   cout << (**(ApEsc + 2) + 3) << endl;
   cout << (*(*ApEsc + 1) + 8) << endl;
   cout << (*--*(ApEsc) + 4) << endl;
