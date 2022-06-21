@@ -23,10 +23,17 @@ public:
   bool lista_vacia();
   int tam_lista();
   bool eliminar(int pos);
+  //bool eliminar(T e);
   void insertar(T inf, int pos);
   void insertar(T inf);
   T obtener_elemento(int pos);
   string lista_en_texto();
+  void ordenar();
+  int busquedaBinaria(T valor);
+
+private:
+  void quickSort(int izq, int der);
+  nodo<T> *get_nodo(int pos);
 };
 
 template <class T> bool Lista<T>::lista_vacia() { return tam == 0; }
@@ -91,6 +98,7 @@ template <class T> void Lista<T>::insertar(T inf, int pos) {
     tam++;
   }
 }
+
 template <class T> T Lista<T>::obtener_elemento(int pos) {
   if (pos < 1 || pos > tam)
     return NULL;
@@ -111,5 +119,57 @@ template <class T> string Lista<T>::lista_en_texto() {
   str += to_string(p->info) + " ]";
   return str;
 }
+template <class T> nodo<T> *Lista<T>::get_nodo(int pos) {
+  nodo<T> *p = cab;
+  for (int i = 1; i < pos; i++)
+    p = p->sig;
+  return p;
+}
 
+template <class T> void Lista<T>::ordenar() { quickSort(1, tam); }
+
+template <class T> void Lista<T>::quickSort(int izq, int der) {
+  int i, j;
+  T v, aux;
+  if (obtener_elemento(der) > obtener_elemento(izq)) {
+    v = obtener_elemento(der);
+    i = izq - 1;
+    j = der;
+    for (;;) {
+      while (obtener_elemento(++i) < v)
+        ;
+      while (obtener_elemento(--j) > v)
+        ;
+      if (i >= j)
+        break;
+      aux = get_nodo(i)->info;
+      get_nodo(i)->info = get_nodo(j)->info;
+      get_nodo(j)->info = aux;
+    }
+    aux = get_nodo(i)->info;
+    get_nodo(i)->info = get_nodo(der)->info;
+    get_nodo(der)->info = aux;
+    quickSort(izq, i - 1);
+    quickSort(i + 1, der);
+  }
+}
+
+/**
+ * Buscar el primer elemento con el valor indicado
+ */
+template<class T>
+int Lista<T>::busquedaBinaria(T valor) {
+  int primero = 1, ultimo = tam, medio;
+  medio = (primero + ultimo) / 2;
+  while (primero <= ultimo) {
+    if (get_nodo(medio)->info == valor) 
+      return medio;
+    else if (get_nodo(medio)->info < valor)
+      primero = medio + 1;
+    else if (get_nodo(medio)->info > valor)
+      ultimo = medio - 1;
+    medio = (primero + ultimo) / 2;
+  }
+  return NULL;
+}
 #endif
