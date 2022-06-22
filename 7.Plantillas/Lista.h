@@ -1,7 +1,7 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-#include "string.h"
+#include <string>
 #include <iostream>
 
 using namespace std;
