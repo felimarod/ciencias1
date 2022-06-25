@@ -1,10 +1,10 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-#include <string>
 #include <iostream>
 
-using namespace std;
+using std::to_string;
+using std::string;
 
 template <class T> struct nodo {
   T info;
@@ -136,10 +136,8 @@ template <class T> void Lista<T>::quickSort(int izq, int der) {
     i = izq - 1;
     j = der;
     for (;;) {
-      while (obtener_elemento(++i) < v)
-        ;
-      while (obtener_elemento(--j) > v)
-        ;
+      while (obtener_elemento(++i) < v) ;
+      while (obtener_elemento(--j) > v) ;
       if (i >= j)
         break;
       aux = get_nodo(i)->info;

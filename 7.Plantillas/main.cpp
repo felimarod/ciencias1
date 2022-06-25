@@ -1,6 +1,7 @@
 #include <iostream>
 //#include "pruebaInt.cpp"
 #include "pruebaEstud.cpp"
+//#include "pruebaChar.cpp"
 
 //using namespace std;
 
@@ -9,6 +10,7 @@ int main() {
 
   //probarInt();
   probarEstud();
+  //probarChar();
 
   //uno.insertar(15);
   //uno.insertar('a');

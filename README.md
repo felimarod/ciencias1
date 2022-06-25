@@ -1,6 +1,6 @@
 # Talleres Ciencias de la Computación I
-Soluciones a ejercicios de la materia Ciencias de la Computación I
+Soluciones a ejercicios y talleres de la materia Ciencias de la Computación I
 
 # Integrantes
-- Diego Armando Hernández Chávez - 20201020175
-- Andres Felipe Martín Rodríguez - 20201020137
+- Hernández Chávez Diego Armando - 20201020175
+- Martín Rodríguez Andres Felipe - 20201020137
