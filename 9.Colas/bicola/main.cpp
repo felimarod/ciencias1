@@ -1,34 +1,70 @@
-#include "Bicola.h"
 #include <iostream>
+#include "Bicola.h"
 
-using namespace std;
+//using namespace std;
+
 
 int main() {
   Bicola<int> bicola;
-  string salida = bicola.vacia() ? "fila vacia": "con contenido";
-  cout << salida << endl; 
+  if (bicola.bicola_vacia())
+    printf("la lista esta vacia\n");
 
-  bicola.push(3, 'I');
-  bicola.imprimirBicola(); // 3
+  bicola.insertar(3, 'I');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola()); 
 
-  //salida = bicola.vacia() ? "fila vacia": "con contenido";
-  //cout << salida << endl; 
 
-  bicola.push(8, 'D');
-  bicola.imprimirBicola(); // 8 3
+  bicola.insertar(8, 'D');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
+
   
-  //bicola.push(10, 'I');
-  //bicola.imprimirBicola(); // 8 3 10
+  bicola.insertar(10, 'I');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
 
-  //cout << "Sacando: " << bicola.pop('D') << endl; // 8 3
 
-  //bicola.push(12, 'I');
-  //bicola.imprimirBicola(); // 12 8 3
+  bicola.eliminar('D');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
 
-  //cout << "Sacando: " << bicola.pop('I') << endl; // 8 3
+  
+  bicola.insertar(12, 'D');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
 
-  //bicola.imprimirBicola(); // "8 3"
-  //bicola.~Bicola();
+
+  bicola.eliminar('I');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
+	
+
+  bicola.eliminar('I');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
+
+
+  bicola.eliminar('D');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
+  
+  bicola.insertar(26, 'I');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
+
+  bicola.insertar(57, 'D');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
+
+  bicola.insertar(1, 'I');
+  cout << "lista: " << bicola.imprimir_bicola() << endl;
+  printf("El tamano de la lista es: %d\n\n", bicola.tam_bicola());
+
+
+  if (bicola.bicola_vacia())
+    printf("la lista esta vacia\n");
+  else 
+    printf("La lista NO esta vacia\n");
 
   return 0;
 }
