@@ -1,95 +1,105 @@
-#include "Estructura.h"
+#ifndef BICOLA_H
+#define BICOLA_H
+
+#include "string.h"
 #include <iostream>
 
-using std::cout;
-using std::endl;
+using namespace std;
 
-#ifndef BICOLA_H
-#define BICOLA_H 
+template <class T> struct nodo {
+  T info;
+  nodo *sig;
+};
 
-#define IZQ 'I'
-#define DER 'D'
+template <class T> class Bicola {
+  nodo<T> *cab;
+  int tam;
 
-template<class T>
-class Bicola {
-  public:
-    Bicola(){
-      cab = fin = 0;
-      //cout << "Entra al constructor" << endl
-           //<< "cab: " << cab << endl
-           //<< "fin: " << fin << endl;
-    }
-    void push(T val, char sentido);
-    T pop(char sentido);
-    void imprimirBicola();
-    inline bool vacia(){ return cab == 0 && fin == 0 ; }
-    ~Bicola();
-  private:
-    nodo<T> *cab, *fin;
+public:
+  Bicola() {
+    cab = NULL;
+    tam = 0;
+  }
+  bool bicola_vacia();
+  int tam_bicola();
+  bool eliminar(char lado);
+  //bool eliminar(T e);
+  void insertar(T inf, char lado);
+  string imprimir_bicola();
 };
 
 
-template<class T>
-void Bicola<T>::push(T val, char sentido) {
-  nodo<T> *nuevo;
-  nuevo->val = val;
-  if( vacia() ) {
-    nuevo->ant = nuevo->sig = cab = fin = nuevo;
-  } else {
-    if ( sentido == IZQ ) {
-      /* cab ... fin nuevo */
-      nuevo->ant = fin;
-      fin->sig = nuevo;
-      fin = nuevo;
-    } else if ( sentido == DER ) {
-      /* nuevo cab ... fin*/
-      nuevo->sig = cab;
-      cab->ant = nuevo;
-      cab = nuevo;
-    }
-    //fin->sig = cab;
-  }
+template <class T> bool Bicola<T>::bicola_vacia() {
+	return tam == 0;
 }
 
-template<class T>
-T Bicola<T>::pop(char sentido) {
-  nodo<T> *aux;
-  T val;
-  if ( sentido == IZQ ) {
-    aux = cab;
+
+template <class T> int Bicola<T>::tam_bicola() {
+	return tam;
+}
+
+
+template <class T> void Bicola<T>::insertar(T inf, char lado) {
+  nodo<T> *p = new nodo<T>, *aux;
+  p->info = inf;
+  p->sig = NULL;
+  if (cab == NULL)
+    cab = p;
+  else {
+    if(lado == 'I'){
+		aux = cab;
+	    while (aux->sig != NULL)
+	      aux = aux->sig;
+	    aux->sig = p;
+  	}else if(lado == 'D'){
+  		p->sig = cab;
+	    //cab->aux = p;
+	    cab = p;
+		  }
+  }
+  tam++;
+}
+
+
+template <class T> string Bicola<T>::imprimir_bicola() {
+  std::string str = "[ ";
+  nodo<T> *p = cab;
+  if(tam_bicola() == 0){
+  	str += " ]";
+  }else if(tam_bicola() == 1){
+  	str += to_string(p->info);
+  	str += " ]";
+  }else{
+  do {
+    str += to_string(p->info);
+    str += ", ";
+    p = p->sig;
+  } while (p->sig != NULL);
+  		str += to_string(p->info) + " ]";
+  }
+  return str;
+}
+
+
+template <class T> bool Bicola<T>::eliminar(char lado) {
+  if (bicola_vacia())
+    return false;
+  nodo<T> *p = cab, *aux;
+  if (lado == 'I') {
     cab = cab->sig;
-    cab->ant = 0;
-  } else if ( sentido == DER ) {
-    aux = fin;
-    fin = fin->ant;
-    fin->sig = NULL;
-  }
-  val = aux->val;
-  delete aux;
-  return val;
-}
-
-template<class T>
-void Bicola<T>::imprimirBicola() {
-  nodo<T> *aux = cab;
-  cout << "Imprmiendo de Izauierda a Derecha:" << endl
-       << aux->val << " ";
-  while ( aux->sig != cab ) {
-    aux = aux->sig;
-    cout << aux->val << " ";
-  }
-  cout << endl;
-}
-
-template <class T>
-Bicola<T>::~Bicola() {
-  nodo<T> *aux;
-  while ( cab->sig != cab ) {
-    aux = cab;
-    cab = aux->sig;
+    delete p;
+  } else if(lado == 'D'){
+  	for (int i = 1; i < tam - 1; i++)
+      p = p->sig;
+    aux = p->sig;
+    p->sig = NULL;
     delete aux;
+    }
+  tam--;
+  if(tam == 0){
+  	cab = cab->sig;
+  	delete p;
   }
-  cout << endl;
-  delete cab;
+  return true;
 }
-#endif /* ifndef BICOLA_h */
+#endif
