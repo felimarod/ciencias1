@@ -3,7 +3,7 @@
 
 using std::cin; using std::cout;
 
-int main(int argc, char *argv[]) {
+int main() {
   char c;
   Pila<int> acc(50);
   int x; 
