@@ -3,8 +3,8 @@
 
 template <class T>
 struct nodo {
-  T val;
-  struct nodo<T> *sig, *ant;
+  T info;
+  nodo<T> *sig, *ant;
 };
 
 #endif /* ifndef ESTRUCTURA_H */
