@@ -1,24 +1,24 @@
 #include <iostream>
 
-using std::string; using std::to_string;
-using std::cout; using std::endl;
+using std::to_string;
+using std::cout;
 
-#ifndef BICOLA_H
-#define BICOLA_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #define IZQ 'I'
 #define DER 'D'
 
 template <class T>
-class Bicola {
+class Queue {
 public:
-  Bicola() { cab = NULL; fin = NULL; tam = 0; }
-  ~Bicola();
-  inline bool bicola_vacia() { return tam == 0; }
-  inline int tam_bicola() { return tam; }
-  T pop(char lado);
-  void push(T inf, char lado);
-  string bicola_to_string();
+  Queue() { cab = fin = NULL; tam = 0; }
+  ~Queue();
+  inline bool isEmpty() { return tam == 0; }
+  inline int getTam() { return tam; }
+  void enqueue(T, char);
+  T dequeue(char);
+  void printQueue(char);
 
 private:
   struct nodo {
@@ -30,10 +30,9 @@ private:
 };
 
 template <class T>
-Bicola<T>::~Bicola<T>(){
+Queue<T>::~Queue<T>(){
   nodo *aux;
   do {
-    cout << "Eliminando " << cab->info << endl;
     aux = cab->sig;
     delete cab;
     cab = aux;
@@ -41,21 +40,21 @@ Bicola<T>::~Bicola<T>(){
 }
 
 template <class T>
-void Bicola<T>::push(T inf, char lado) {
+void Queue<T>::enqueue(T inf, char lado) {
   nodo *nuevo = new nodo;
   nuevo->info = inf;
   nuevo->ant = NULL;
   nuevo->sig = NULL;
-  if (bicola_vacia()) {
+  if (isEmpty()) {
     cab = nuevo;
     fin = nuevo;
   } else {
-    if (lado == 'I') {
+    if (lado == IZQ) {
       /* ... fin nuevo */
       fin->sig = nuevo;
       nuevo->ant = fin;
       fin = nuevo;
-    } else if (lado == 'D') {
+    } else if (lado == DER) {
       /* nuevo cab ... */
       nuevo->sig = cab;
       cab->ant = nuevo;
@@ -66,35 +65,23 @@ void Bicola<T>::push(T inf, char lado) {
 }
 
 template <class T>
-string Bicola<T>::bicola_to_string() {
-  string str = "[ ";
-  nodo *p = cab;
-  while (p != NULL) {
-    str += to_string(p->info) + " ";
-    p = p->sig;
-  }
-  str += "]";
-  return str;
-}
-
-template <class T>
-T Bicola<T>::pop(char lado) {
+T Queue<T>::dequeue(char lado) {
   T info;
   nodo *aux;
-  if (bicola_vacia())
+  if ( tam == 0 )
     return NULL;
   else if (tam == 1) {
     info = cab->info;
     aux = cab;
     cab = NULL;
     fin = NULL;
-  } else if (lado == 'I') {
+  } else if (lado == IZQ) {
     info = cab->info;
 
     aux = cab;
     cab = cab->sig;
     cab->ant = NULL;
-  } else if (lado == 'D') {
+  } else if (lado == DER) {
     info = fin->info;
 
     aux = fin;
@@ -104,6 +91,26 @@ T Bicola<T>::pop(char lado) {
   delete aux;
   tam--;
   return info;
+}
+
+template <class T>
+void Queue<T>::printQueue(char lado) {
+  cout << "[ ";
+  nodo *p;
+  if ( lado == IZQ ){
+    p = cab;
+    while (p != NULL) {
+      cout << to_string(p->info) + ' ';
+      p = p->sig;
+    }
+  } else if ( lado == DER ) {
+    p = fin;
+    while (p != NULL) {
+      cout << to_string(p->info) + ' ';
+      p = p->ant;
+    }
+  }
+  cout << "]\n";
 }
 
 #endif

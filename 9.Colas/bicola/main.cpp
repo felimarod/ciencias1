@@ -12,19 +12,26 @@ void bicola_vacia();
 
 int main() {
   bicola_vacia();
-
+//Queue P;
+//P.enqueue(3,I); // 3
+//P.enqueue(8,D); // 8 3
+//P.enqueue(10,I); // 8 3 10
+//P.dequeue(D); // 8 3
+//P.enqueue(12, D); // 12 8 3
+//P.dequeue(I); // 8 3
+//P.imprimir(I); // "8 3"
   agregar(3, 'I');
   agregar(8, 'D');
   agregar(10, 'I');
   atender('D');
   agregar(12, 'D');
   atender('I');
-  atender('D');
-  atender('I');
-  agregar(26, 'I');
-  atender('I');
-  agregar(57, 'D');
-  agregar(1, 'I');
+  //atender('D');
+  //atender('I');
+  //agregar(26, 'I');
+  //atender('I');
+  //agregar(57, 'D');
+  //agregar(1, 'I');
 
   bicola_vacia();
 
