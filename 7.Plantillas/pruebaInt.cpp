@@ -1,9 +1,22 @@
-#include "Lista.h"
+#include <iostream>
+#include "ListaSimple.h"
+
+using namespace std;
+
+ListaSimple<int> lista;
+
+void probarInt();
+void imprimirLista(){
+  cout << "[ ";
+  for (int i = 1; i <= lista.getTam(); i++)
+    cout << lista.obtenerElemento(i) << " ";
+  cout << "]";
+  printf("\nEl tamaño de la lista es: %d\n\n", lista.getTam());
+}
 
 void probarInt() {
-  Lista<int> lista;
 
-  if (lista.lista_vacia())
+  if (lista.listaVacia())
     printf("la lista esta vacia\n");
   else 
     printf("La lista NO esta vacia");
@@ -11,36 +24,29 @@ void probarInt() {
   for (int i = 1; i < 11; ++i)
     lista.insertar(i);
 
-  cout << "lista: " << lista.lista_en_texto() << endl;
-  printf("El tamaño de la lista es: %d\n\n", lista.tam_lista());
+  imprimirLista();
 
-  lista.eliminar(3);
-  cout << "lista: " << lista.lista_en_texto() << endl;
-  printf("El tamaño de la lista es: %d\n\n", lista.tam_lista());
+  if(lista.eliminar(1)){
+    printf("Se Elimino la posición 1\n");
+  } else {
+    printf("NO se elimino la posición 1\n");
+  }
+  imprimirLista();
 
   lista.eliminar(9);
-  cout << "lista: " << lista.lista_en_texto() << endl;
-  printf("El tamaño de la lista es: %d\n\n", lista.tam_lista());
+  imprimirLista();
 
   lista.insertar(156);
-  cout << "lista: " << lista.lista_en_texto() << endl;
-  printf("El tamaño de la lista es: %d\n\n", lista.tam_lista());
+  imprimirLista();
 
   lista.insertar(1489, 2);
-  cout << "lista: " << lista.lista_en_texto() << endl;
-  printf("El tamaño de la lista es: %d\n\n", lista.tam_lista());
+  imprimirLista();
+  int contiene = 156;
+  if(lista.contiene(contiene)){
+    printf("la lista tiene el número %d\n", contiene);
+  }
 
-  lista.ordenar();
-  cout << "lista: " << lista.lista_en_texto() << endl;
-  printf("El tamaño de la lista es: %d\n\n", lista.tam_lista());
-
-  int numBuscado = 0;
-  printf("La ubicación del número %d es: %d\n\n", numBuscado,
-         lista.busquedaBinaria(numBuscado));
-  // cout << "uno = " << uno.lista_en_texto() << endl;
-  // printf("El tamaño de la lista es: %d\n\n", uno.tam_lista());
-  
-  if (lista.lista_vacia())
+  if (lista.listaVacia())
     printf("la lista esta vacia\n");
   else 
     printf("La lista NO esta vacia\n");

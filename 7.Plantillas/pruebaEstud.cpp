@@ -1,40 +1,42 @@
 #include <iostream>
-#include <string>
-#include "Lista.h"
+#include "ListaSimple.h"
 
-//template <class T>
+using namespace std;
+
+
 struct Estudiante{
-  //T id;
   int cod;
-  char *nombre;
+  string nombre;
   int telefono;
 };
 
-string objetosEnLista(Lista<Estudiante> lista){
-  Estudiante aux;
-  //cout << "lista: " << lista.lista_en_texto() << endl;
-  string salida = "{\n";
-  for(int i=1; i<lista.tam_lista() ; i++){
-    salida += "\t{";
+ListaSimple<Estudiante> lista;
 
-    aux = lista.obtener_elemento(i);
+ListaSimple<Estudiante> *getLista(){
+  return &lista;
+}
+void imprimir(){
+  Estudiante *aux;
+  cout << "{\n";
+  for(int i=1; i<lista.getTam() ; i++){
+    cout << "\t{";
 
-    salida += "\tcodigo: " + to_string(aux.cod) + "\n";
-    string salidat = aux.nombre;
-    salida += "\t\tnombre: " + salidat + "\n";
-    salida += "\t\ttelefono: " + to_string(aux.telefono) + "\n";
-    salida += "\t}\n";
+    aux = lista.obtenerElemento(i);
+
+    cout << "\tcodigo: " << aux->cod << "\n";
+    cout << "\t\tnombre: " <<  aux->nombre << "\n";
+    cout << "\t\ttelefono: " << aux->telefono << "\n";
+    cout << "\t}\n";
   }
-  salida += "}";
-  return salida;
+  cout << "}";
+  printf("\nEl tamaño de la lista es: %d\n\n", lista.getTam());
 }
 
 void probarEstud() {
-  Lista<Estudiante> lista;
 
-  if (lista.lista_vacia())
+  if (lista.listaVacia())
     printf("la lista esta vacia\n");
-  else 
+  else
     printf("La lista NO esta vacia");
 
   for (int i = 1; i < 11; ++i){
@@ -43,14 +45,16 @@ void probarEstud() {
     e.telefono = 138495;
     e.nombre = "Juan perez";
     lista.insertar(e);
-    //printf("Se agrego el estudiante %d\n", i);
   }
 
-  //std::cout << objetosEnLista(lista) << std::endl;
-  printf("El tamaño de la lista es: %d\n\n", lista.tam_lista());
+  imprimir();
 
-  Estudiante aux = lista.obtener_elemento(1234);
-  printf("Nombre: %c, codigo: %d, telefono: %d", aux.nombre,aux.cod,aux.telefono);
+  Estudiante *aux = lista.obtenerElemento(11);
+  if(aux != NULL){
+    cout << "Nombre: " << aux->nombre;
+    cout << "Codigo: " << aux->cod;
+    cout << "Telefono: " << aux->telefono;
+  }
 
   //lista.eliminar(3);
   //cout << "lista: " << lista.lista_en_texto() << endl;
@@ -82,12 +86,12 @@ void probarEstud() {
 
   //int numBuscado = 0;
   //printf("La ubicación del número %d es: %d\n\n", numBuscado,
-         //lista.busquedaBinaria(numBuscado));
+  //lista.busquedaBinaria(numBuscado));
   // cout << "uno = " << uno.lista_en_texto() << endl;
   // printf("El tamaño de la lista es: %d\n\n", uno.tam_lista());
-  
-  if (lista.lista_vacia())
+
+  if (lista.listaVacia())
     printf("la lista esta vacia\n");
-  else 
+  else
     printf("La lista NO esta vacia\n");
 }

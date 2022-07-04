@@ -1,21 +1,55 @@
+#include "MultiListaEstudiantes.cpp"
 #include <iostream>
-#include "ListaEstudiantes.h"
+
+MultiListaEstudiantes mle;
 
 using namespace std;
 
 void ejercicioClase();
 void pedirDatos();
+void imprimirListaOrdenada(string);
 
 int main() {
-
-  //pedirDatos();
+  // pedirDatos();
   ejercicioClase();
-
+  //imprimirListaOrdenada("Sistemas");
+  //imprimirListaOrdenada("Danza");
+  // mle.imprimirListaOrdenada("Natació");
   return 0;
 }
 
+void imprimirListaOrdenada(string orden) {
+  ListaSimple<Estudiante> *listaOrd = NULL;
+  Estudiante est;
+
+  cout << "LISTA ORDENADA POR " << orden << endl;
+  listaOrd = mle.obtenerListaOrdenadaPor(orden);
+
+  if(listaOrd != NULL){
+    int tam = listaOrd->getTam(); 
+    if (tam == 0) {
+      printf("Esta vacía");
+      return;
+    } else {
+      printf("El tamaño de la lista es de: %d\n", tam);
+    }
+    cout << "\tNombre \tCarrera \tActividad \tEdad \tSig Nom \tSig "
+         << "Carr \tSig Act\t Sig Edad" << endl;
+    for (int i = 1; i <= (*listaOrd).getTam(); i++) {
+      est = listaOrd->obtenerElemento(i);
+      cout << i << "\t" << est.nom
+           << "\t" << est.car
+           << "\t" << est.act << "\t"
+           << "\t" << est.edad << "\t"
+           << "\t" << est.sigNom << "\t"
+           << "\t" << est.sigCar << "\t"
+           << "\t" << est.sigAct << "\t" << est.sigEdad << endl;
+    }
+    cout << endl;
+  }
+}
+
 void ejercicioClase() {
-  MultiListaEstudiantes mle;
   Estudiante *auxE;
 
   auxE = new Estudiante;
@@ -28,7 +62,7 @@ void ejercicioClase() {
   auxE = new Estudiante;
   auxE->nom = "Jaime";
   auxE->car = "Industrial";
-  //auxE->act = "Natación";
+  // auxE->act = "Natación";
   auxE->act = "Natació";
   auxE->edad = 20;
   mle.insertar(auxE);
@@ -57,13 +91,13 @@ void ejercicioClase() {
   auxE = new Estudiante;
   auxE->nom = "Juanny";
   auxE->car = "Industrial";
-  //auxE->act = "Natación";
+  // auxE->act = "Natación";
   auxE->act = "Natació";
   auxE->edad = 21;
   mle.insertar(auxE);
 
   auxE = new Estudiante;
-  //auxE->nom = "Mary Paz";
+  // auxE->nom = "Mary Paz";
   auxE->nom = "Mary P";
   auxE->car = "Sistemas";
   auxE->act = "Danza";
@@ -91,10 +125,10 @@ void ejercicioClase() {
   auxE->edad = 22;
   mle.insertar(auxE);
 
-  mle.imprimir();
+   mle.imprimir();
 }
 
-void pedirDatos(){
+void pedirDatos() {
   MultiListaEstudiantes mle;
   Estudiante *auxE;
   for (int i = 0; i < 10; i++) {
@@ -105,6 +139,5 @@ void pedirDatos(){
     cout << "Ingrese la actividad del estudiante: "; cin >> auxE->act;
     mle.insertar(auxE);
   }
-
   mle.imprimir();
 }
