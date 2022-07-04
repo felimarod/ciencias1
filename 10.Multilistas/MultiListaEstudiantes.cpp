@@ -7,12 +7,21 @@
 class MultiListaEstudiantes {
 public:
   MultiListaEstudiantes(int _tam = 10) {
-    /* nombre edad catastral electrica industrial sistemas basquet beisbol danza
-     * natacion */
+    /* nombre edad catastral electrica industrial sistemas basquet beisbol danza natacion */
     cabs = new int[10];
     for (int i = 0; i < 10; i++)
       cabs[i] = 0;
     ests = new Estudiante[_tam];
+    for (int i = 0; i < _tam; i++){
+      ests[i].nom = "";
+      ests[i].car = "";
+      ests[i].edad = 0;
+      ests[i].act = "";
+      ests[i].sigNom = 0;
+      ests[i].sigCar = 0;
+      ests[i].sigAct = 0;
+      ests[i].sigEdad = 0;
+    }
     tamMax = _tam;
     tam = 0;
   }
@@ -20,7 +29,7 @@ public:
     // delete ests;
     delete cabs;
   }
-  void insertar(Estudiante*);
+  void insertar(Estudiante);
   // void eliminar(string);
   // Estudiante busquedaPorNombre(string);
   ListaSimple<Estudiante> *obtenerListaOrdenadaPor(string);
@@ -28,7 +37,6 @@ public:
   inline bool multilistaVacia() { return tam == 0; }
   inline int getTam() { return tam; }
   void imprimirListaOrdenada(string);
-
   void imprimir();
 
 private:
@@ -42,18 +50,17 @@ private:
   void organizarPorActividad(Estudiante*);
 };
 
-void MultiListaEstudiantes::insertar(Estudiante *inf) {
+void MultiListaEstudiantes::insertar(Estudiante inf) {
   if (!multilistaLlena()) {
-    inf->sigNom = 0;
-    inf->sigCar = 0;
-    inf->sigAct = 0;
-    inf->sigEdad = 0;
+    ests[tam].nom = inf.nom;
+    ests[tam].edad = inf.edad;
+    ests[tam].car = inf.car;
+    ests[tam].act = inf.act;
     tam++;
-    organizarPorNombre(inf);
-    organizarPorEdad(inf);
-    organizarPorCarrera(inf);
-    organizarPorActividad(inf);
-    ests[tam - 1] = *inf;
+    organizarPorNombre(&inf);
+    organizarPorEdad(&inf);
+    organizarPorCarrera(&inf);
+    organizarPorActividad(&inf);
   }
 }
 
@@ -78,8 +85,7 @@ void MultiListaEstudiantes::imprimirListaOrdenada(string orden) {
 
   auxPos = cabs[ord];
   if (auxPos != 0) {
-    cout << "Nombre \tCarrera \tActividad \tEdad \tSig Nom \tSig "
-            "Carr \tSig Act\t Sig Edad"
+    cout << "Nombre \tCarrera \tActividad \tEdad \tSig Nom \tSig Carr \tSig Act\t Sig Edad"
          << endl;
     do {
       auxE = ests[auxPos - 1];
@@ -150,11 +156,13 @@ void MultiListaEstudiantes::organizarPorCarrera(Estudiante *inf) {
   }
 }
 
-/* Organizar por Actividad */
+/* Organizar por Actividad 
+ * Agrega al inicio */
 void MultiListaEstudiantes::organizarPorActividad(Estudiante *inf) {
   int auxCab, posCab;
   posCab = getPosCab(inf->act);
-  inf->sigAct = cabs[posCab];
+  
+  ests[tam - 1].sigAct = cabs[posCab];
   cabs[posCab] = tam;
 }
 
