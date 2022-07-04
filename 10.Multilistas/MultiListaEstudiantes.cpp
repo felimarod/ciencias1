@@ -7,12 +7,13 @@
 class MultiListaEstudiantes {
 public:
   MultiListaEstudiantes(int _tam = 10) {
-    /* nombre edad catastral electrica industrial sistemas basquet beisbol danza natacion */
+    /* nombre edad catastral electrica industrial sistemas basquet beisbol danza
+     * natacion */
     cabs = new int[10];
     for (int i = 0; i < 10; i++)
       cabs[i] = 0;
     ests = new Estudiante[_tam];
-    for (int i = 0; i < _tam; i++){
+    for (int i = 0; i < _tam; i++) {
       ests[i].nom = "";
       ests[i].car = "";
       ests[i].edad = 0;
@@ -44,10 +45,10 @@ private:
   Estudiante *ests;
   int tam, tamMax;
   int getPosCab(string);
-  void organizarPorNombre(Estudiante*);
-  void organizarPorEdad(Estudiante*);
-  void organizarPorCarrera(Estudiante*);
-  void organizarPorActividad(Estudiante*);
+  void organizarPorNombre(Estudiante *);
+  void organizarPorEdad(Estudiante *);
+  void organizarPorCarrera(Estudiante *);
+  void organizarPorActividad(Estudiante *);
 };
 
 void MultiListaEstudiantes::insertar(Estudiante inf) {
@@ -64,17 +65,27 @@ void MultiListaEstudiantes::insertar(Estudiante inf) {
   }
 }
 
-int MultiListaEstudiantes::getPosCab(string orden){
-  if (orden == "Nombre") return 0;
-  else if (orden == "Edad") return  1;
-  else if (orden == "Catastral") return 2;
-  else if (orden == "Electrica") return 3;
-  else if (orden == "Industrial") return 4;
-  else if (orden == "Sistemas") return 5;
-  else if (orden == "Basquet") return 6;
-  else if (orden == "Beisbol") return 7;
-  else if (orden == "Danza") return 8;
-  else if (orden == "Natació") return 9;
+int MultiListaEstudiantes::getPosCab(string orden) {
+  if (orden == "Nombre")
+    return 0;
+  else if (orden == "Edad")
+    return 1;
+  else if (orden == "Catastral")
+    return 2;
+  else if (orden == "Electrica")
+    return 3;
+  else if (orden == "Industrial")
+    return 4;
+  else if (orden == "Sistemas")
+    return 5;
+  else if (orden == "Basquet")
+    return 6;
+  else if (orden == "Beisbol")
+    return 7;
+  else if (orden == "Danza")
+    return 8;
+  else if (orden == "Natació")
+    return 9;
 }
 
 void MultiListaEstudiantes::imprimirListaOrdenada(string orden) {
@@ -85,7 +96,8 @@ void MultiListaEstudiantes::imprimirListaOrdenada(string orden) {
 
   auxPos = cabs[ord];
   if (auxPos != 0) {
-    cout << "Nombre \tCarrera \tActividad \tEdad \tSig Nom \tSig Carr \tSig Act\t Sig Edad"
+    cout << "Nombre \tCarrera \tActividad \tEdad \tSig Nom \tSig Carr \tSig "
+            "Act\t Sig Edad"
          << endl;
     do {
       auxE = ests[auxPos - 1];
@@ -106,8 +118,8 @@ void MultiListaEstudiantes::imprimirListaOrdenada(string orden) {
   }
 }
 
-ListaSimple<Estudiante>
-*MultiListaEstudiantes::obtenerListaOrdenadaPor(string orden) {
+ListaSimple<Estudiante> *
+MultiListaEstudiantes::obtenerListaOrdenadaPor(string orden) {
   ListaSimple<Estudiante> *lista = NULL;
   Estudiante auxE;
   int auxPos, ord;
@@ -115,7 +127,7 @@ ListaSimple<Estudiante>
   ord = getPosCab(orden);
   auxPos = cabs[ord];
 
-  if (auxPos != 0){
+  if (auxPos != 0) {
     lista = new ListaSimple<Estudiante>;
     do {
       auxE = ests[auxPos - 1];
@@ -134,11 +146,37 @@ ListaSimple<Estudiante>
 }
 
 /* Organizar por Nombre */
-void MultiListaEstudiantes::organizarPorNombre(Estudiante *inf) {
-}
+void MultiListaEstudiantes::organizarPorNombre(Estudiante *inf) {}
 
 /* Organizar por Edad */
-void MultiListaEstudiantes::organizarPorEdad(Estudiante *inf) {}
+void MultiListaEstudiantes::organizarPorEdad(Estudiante *inf) {
+  int auxEdad;
+  int posEstAnt,posEstSig;
+  int edadAct = inf->edad;
+
+  if (tam == 1) {
+    cabs[1] = tam;
+  } else {
+    edadAct = inf->edad; // Edad del estudiante actual
+    if (edadAct >= ests[cabs[1] - 1].edad) {
+      ests[tam - 1].sigEdad = cabs[1];
+      cabs[1] = tam;
+    } else {
+      // Empieza a recorrerlos en orden de Edad, mientras halla un siguiente
+      posEstAnt = cabs[1];
+      posEstSig = ests[posEstAnt- 1].sigEdad;
+      while( ests[posEstAnt - 1].edad > edadAct && posEstSig != 0){
+        if(edadAct > ests[posEstSig - 1].edad)
+          break;
+        posEstAnt = posEstSig;
+        posEstSig = ests[posEstAnt - 1].sigEdad;
+      }
+      ests[posEstAnt - 1].sigEdad = tam;
+      ests[tam - 1].sigEdad = posEstSig;
+    }
+  }
+  cout << "Cabecera de edad: " << cabs[1] << endl;
+}
 
 /* Organizar por Carrera */
 void MultiListaEstudiantes::organizarPorCarrera(Estudiante *inf) {
@@ -156,12 +194,12 @@ void MultiListaEstudiantes::organizarPorCarrera(Estudiante *inf) {
   }
 }
 
-/* Organizar por Actividad 
+/* Organizar por Actividad
  * Agrega al inicio */
 void MultiListaEstudiantes::organizarPorActividad(Estudiante *inf) {
   int auxCab, posCab;
   posCab = getPosCab(inf->act);
-  
+
   ests[tam - 1].sigAct = cabs[posCab];
   cabs[posCab] = tam;
 }
@@ -173,12 +211,9 @@ void MultiListaEstudiantes::imprimir() {
 
   for (int i = 0; i < tam; i++) {
     cout << i + 1 << "\t" << ests[i].nom << "\t" << ests[i].car << "\t"
-         << ests[i].act
-         << "\t" << ests[i].edad
-         << "\t" << ests[i].sigNom
-         << "\t" << ests[i].sigCar
-         << "\t" << ests[i].sigAct
-         << "\t" << ests[i].sigEdad << endl;
+         << ests[i].act << "\t" << ests[i].edad << "\t" << ests[i].sigNom
+         << "\t" << ests[i].sigCar << "\t" << ests[i].sigAct << "\t"
+         << ests[i].sigEdad << endl;
   }
   cout << endl;
 

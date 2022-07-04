@@ -14,39 +14,8 @@ int main() {
   ejercicioClase();
   //imprimirListaOrdenada("Sistemas");
   //imprimirListaOrdenada("Danza");
-   mle.imprimirListaOrdenada("Electrica");
+   mle.imprimirListaOrdenada("Edad");
   return 0;
-}
-
-void imprimirListaOrdenada(string orden) {
-  ListaSimple<Estudiante> *listaOrd = NULL;
-  Estudiante est;
-
-  cout << "LISTA ORDENADA POR " << orden << endl;
-  listaOrd = mle.obtenerListaOrdenadaPor(orden);
-
-  if(listaOrd != NULL){
-    int tam = listaOrd->getTam(); 
-    if (tam == 0) {
-      printf("Esta vacía");
-      return;
-    } else {
-      printf("El tamaño de la lista es de: %d\n", tam);
-    }
-    cout << "\tNombre \tCarrera \tActividad \tEdad \tSig Nom \tSig "
-         << "Carr \tSig Act\t Sig Edad" << endl;
-    for (int i = 1; i <= (*listaOrd).getTam(); i++) {
-      est = listaOrd->obtenerElemento(i);
-      cout << i << "\t" << est.nom
-           << "\t" << est.car
-           << "\t" << est.act << "\t"
-           << "\t" << est.edad << "\t"
-           << "\t" << est.sigNom << "\t"
-           << "\t" << est.sigCar << "\t"
-           << "\t" << est.sigAct << "\t" << est.sigEdad << endl;
-    }
-    cout << endl;
-  }
 }
 
 void ejercicioClase() {
@@ -59,8 +28,7 @@ void ejercicioClase() {
   mle.insertar(auxE);
 
   auxE.nom = "Jaime";
-  auxE.car = "Industrial";
-  // auxE->act = "Natación";
+  auxE.car = "Industrial"; // auxE->act = "Natación";
   auxE.act = "Natació";
   auxE.edad = 20;
   mle.insertar(auxE);
@@ -84,13 +52,12 @@ void ejercicioClase() {
   mle.insertar(auxE);
 
   auxE.nom = "Juanny";
-  auxE.car = "Industrial";
-  // auxE.act = "Natación";
+  auxE.car = "Industrial"; // auxE.act = "Natación";
   auxE.act = "Natació";
   auxE.edad = 21;
   mle.insertar(auxE);
 
-  // auxE.nom = "Mary Paz";
+   auxE.nom = "Mary Paz";
   auxE.nom = "Mary P";
   auxE.car = "Sistemas";
   auxE.act = "Danza";
