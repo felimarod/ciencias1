@@ -7,14 +7,23 @@ using namespace std;
 
 void ejercicioClase();
 void pedirDatos();
-void imprimirListaOrdenada(string);
+void imprimirListaOrdenada(ListaSimple<Estudiante>*);
 
 int main() {
   // pedirDatos();
   ejercicioClase();
   //imprimirListaOrdenada("Sistemas");
   //imprimirListaOrdenada("Danza");
-   mle.imprimirListaOrdenada("Edad");
+  //mle.imprimir();
+  //mle.eliminar(2);
+  mle.imprimir();
+
+  //string nombre = "Andres";
+  //cout << "LISTA ORDENADA POR " << nombre<< endl;
+  //imprimirListaOrdenada(mle.obtenerEstudiantesConNombre(nombre));
+  //string tipo = "Nombre";
+  //cout << "LISTA ORDENADA POR " << tipo<< endl;
+  //imprimirListaOrdenada(mle.obtenerListaOrdenadaPor(tipo));
   return 0;
 }
 
@@ -81,8 +90,6 @@ void ejercicioClase() {
   auxE.act = "Beisbol";
   auxE.edad = 22;
   mle.insertar(auxE);
-
-   mle.imprimir();
 }
 
 void pedirDatos() {
@@ -95,5 +102,24 @@ void pedirDatos() {
     cout << "Ingrese la actividad del estudiante: "; cin >> auxE.act;
     mle.insertar(auxE);
   }
-  mle.imprimir();
+}
+void imprimirListaOrdenada(ListaSimple<Estudiante> *listaOrd) {
+  Estudiante est;
+
+  if(listaOrd != NULL){
+    cout << "\tNombre\tCarrera\t\tAct\t\tEdad\tSiNom\tSiCarr\tSiAct\tSiEdad" << endl;
+    for (int i = 1; i <= listaOrd->getTam(); i++) {
+      est = listaOrd->obtenerElemento(i);
+      cout << i << "\t" << est.nom
+           << "\t" << est.car
+           << "\t" << est.act 
+           << "\t\t" << est.edad 
+           << "\t" << est.sigNom  
+           << "\t" << est.sigCar  
+           << "\t" << est.sigAct << "\t" << est.sigEdad << endl;
+    }
+    cout << endl;
+  } else {
+    cout << "La lista esta vacía\n";
+  }
 }
