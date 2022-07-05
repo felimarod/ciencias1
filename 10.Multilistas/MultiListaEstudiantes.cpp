@@ -17,12 +17,19 @@ public:
       ests[i].nom = ests[i].car = ests[i].act = "";
       ests[i].edad = ests[i].sigNom = ests[i].sigCar = ests[i].sigAct = ests[i].sigEdad = 0;
     }
+    cabEst = new int[_tam + 1];
+    cabEst[0] = 1;
+    for (int i = 1; i < _tam; i++) {
+      cabEst[i] = i+1;
+    }
+    cabEst[_tam] = 0;
     tamMax = _tam;
     tam = 0;
   }
   ~MultiListaEstudiantes() {
     // delete ests;
     delete cabs;
+    delete cabEst;
   }
   void insertar(Estudiante);
   // void eliminar(string);
@@ -35,9 +42,10 @@ public:
   void imprimir();
   bool contiene(string);
   ListaSimple<Estudiante> *obtenerEstudiantesConNombre(string);
+  bool eliminar(int);
 
 private:
-  int *cabs;
+  int *cabs, *cabEst;
   Estudiante *ests;
   int tam, tamMax;
   int getPosCab(string);
@@ -65,8 +73,7 @@ void MultiListaEstudiantes::insertar(Estudiante inf) {
         ests[tam - 1].sigNom = cabs[0];
         cabs[0] = tam;
       } else {
-        // Empieza a recorrerlos en orden Alfabetico, mientras halla un
-        // siguiente
+        // Empieza a recorrerlos en orden Alfabetico, mientras halla un siguiente
         posEstAnt = cabs[0];
         posEstSig = ests[posEstAnt - 1].sigNom;
         while (ests[posEstAnt - 1].nom < inf.nom && posEstSig != 0) {
@@ -126,6 +133,100 @@ int MultiListaEstudiantes::getPosCab(string orden) {
   else if (orden == "Beisbol") return 7;
   else if (orden == "Danza") return 8;
   else if (orden == "Natació") return 9;
+}
+
+bool MultiListaEstudiantes::eliminar(int pos) {
+  Estudiante auxEst, estActu;
+  int auxCab, posCab;
+  if (pos > tam || tam < 1)
+    return false;
+
+  estActu = ests[pos - 1];
+  /* Nombre */
+  if (pos == cabs[0]) {
+    cabs[0] = estActu.sigNom;
+  } else {
+    // Empieza a recorrerlos en orden Alfabetico, mientras halla un siguiente
+    auxCab = cabs[0];
+    posCab = ests[auxCab - 1].sigNom;
+    while (posCab != pos && posCab != 0) {
+      auxCab = posCab;
+      posCab = ests[auxCab - 1].sigNom;
+    }
+    ests[auxCab - 1].sigNom = estActu.sigNom;
+  }
+  /* Edad */
+  if (pos == cabs[1]) {
+    cabs[1] = estActu.sigEdad;
+  } else {
+    // Empieza a recorrerlos de mayor a menor, mientras exista un siguiente
+    auxCab = cabs[1];
+    posCab = ests[auxCab - 1].sigEdad;
+    while (posCab != pos && posCab != 0) {
+      auxCab = posCab;
+      posCab = ests[auxCab - 1].sigEdad;
+    }
+    ests[auxCab - 1].sigEdad = estActu.sigEdad;
+  }
+  /* Carrera */
+  int orden = getPosCab(estActu.car);
+  if (pos == cabs[orden]) {
+    cabs[orden] = estActu.sigCar;
+  } else {
+    auxCab = cabs[orden];
+    posCab = ests[auxCab - 1].sigCar;
+    while (posCab != pos && posCab != 0) {
+      auxCab = posCab;
+      posCab = ests[auxCab - 1].sigCar;
+    }
+    ests[auxCab - 1].sigEdad = estActu.sigCar;
+  }
+  /* Actividad */
+  orden = getPosCab(estActu.act);
+  if (pos == cabs[orden]) {
+    cabs[orden] = estActu.sigAct;
+  } else {
+    auxCab = cabs[orden];
+    posCab = ests[auxCab - 1].sigAct;
+    while (posCab != pos && posCab != 0) {
+      auxCab = posCab;
+      posCab = ests[auxCab - 1].sigAct;
+    }
+    ests[auxCab - 1].sigEdad = estActu.sigAct;
+  }
+  for (int i = 0; i < 10; ++i)
+    if(cabs[i] >= pos) cabs[i] = cabs[i]-1;
+
+  /* Sube los estudiantes que estaban debajo del que se quitan los datos*/
+  pos--;
+  for (int i = pos; i < tam - 1; i++) {
+    ests[i].nom = ests[i + 1].nom;
+    ests[i].edad = ests[i + 1].edad;
+    ests[i].car = ests[i + 1].car;
+    ests[i].act = ests[i + 1].act;
+    ests[i].sigNom = ests[i + 1].sigNom;
+    ests[i].sigEdad = ests[i + 1].sigEdad;
+    ests[i].sigCar = ests[i + 1].sigCar;
+    ests[i].sigAct = ests[i + 1].sigAct;
+  }
+  /* Cambia las posiciones que apuntaban a la anterior o uno mayor */
+  pos++;
+  for (int i = 0; i < tam - 1; i++) {
+    if(ests[i].sigNom >= pos) ests[i].sigNom--;
+    if(ests[i].sigEdad >= pos) ests[i].sigEdad--;
+    if(ests[i].sigCar >= pos) ests[i].sigCar--;
+    if(ests[i].sigAct >= pos) ests[i].sigAct--;
+  }
+  tam--;
+  ests[tam].nom = "";
+  ests[tam].car = "";
+  ests[tam].act = "";
+  ests[tam].edad = 0;
+  ests[tam].sigAct = 0;
+  ests[tam].sigCar = 0;
+  ests[tam].sigEdad = 0;
+  ests[tam].sigNom = 0;
+  return true;
 }
 
 void MultiListaEstudiantes::imprimirListaOrdenada(string orden) {
@@ -213,7 +314,7 @@ void MultiListaEstudiantes::imprimir() {
   printf("---------Tabla de Datos---------\n");
   cout << "\tNombre\tCarrera\t\tAct\tEdad\tSiNom\tSiCarr\tSiAct\tSiEdad"
        << endl;
-  for (int i = 0; i < tam; i++) {
+  for (int i = 0; i < tamMax; i++) {
     cout << i + 1 << "\t" << ests[i].nom << "\t" << ests[i].car << "\t"
          << ests[i].act << "\t" << ests[i].edad << "\t" << ests[i].sigNom
          << "\t" << ests[i].sigCar << "\t" << ests[i].sigAct << "\t"

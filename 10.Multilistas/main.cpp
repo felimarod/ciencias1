@@ -14,14 +14,14 @@ int main() {
   ejercicioClase();
   //imprimirListaOrdenada("Sistemas");
   //imprimirListaOrdenada("Danza");
-  //mle.imprimir();
-  //mle.eliminar(2);
+  mle.imprimir();
+  mle.eliminar(2);
   mle.imprimir();
 
   //string nombre = "Andres";
   //cout << "LISTA ORDENADA POR " << nombre<< endl;
   //imprimirListaOrdenada(mle.obtenerEstudiantesConNombre(nombre));
-  //string tipo = "Nombre";
+  //string tipo = "Sistemas";
   //cout << "LISTA ORDENADA POR " << tipo<< endl;
   //imprimirListaOrdenada(mle.obtenerListaOrdenadaPor(tipo));
   return 0;
