@@ -23,7 +23,7 @@ int main() {
 
   /* Imprimir estudiantes ordenados por
    * "Nombre" "Edad" "Catastral" "Electrica" "Industrial" "Basquet" "Beisbol"
-   * "Danza" "Natación"
+   * "Danza" "Natació"
    * */
   // string tipo = "Edad";
   // cout << "\nLISTA ORDENADA POR " << tipo<< endl;
@@ -41,7 +41,7 @@ void ejercicioClase() {
   mle.insertar(auxE);
 
   auxE.nom = "Jaime";
-  auxE.car = "Industrial"; // auxE->act = "Natación";
+  auxE.car = "Industrial";
   auxE.act = "Natació";
   auxE.edad = 20;
   mle.insertar(auxE);
@@ -65,7 +65,7 @@ void ejercicioClase() {
   mle.insertar(auxE);
 
   auxE.nom = "Juanny";
-  auxE.car = "Industrial"; // auxE.act = "Natación";
+  auxE.car = "Industrial"; 
   auxE.act = "Natació";
   auxE.edad = 21;
   mle.insertar(auxE);
