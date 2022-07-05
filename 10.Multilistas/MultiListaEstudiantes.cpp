@@ -7,8 +7,7 @@
 class MultiListaEstudiantes {
 public:
   MultiListaEstudiantes(int _tam = 10) {
-    /* nombre edad catastral electrica industrial sistemas basquet beisbol danza
-     * natacion */
+    /* nombre edad catastral electrica industrial sistemas basquet beisbol danza natacion */
     cabs = new int[10];
     for (int i = 0; i < 10; i++)
       cabs[i] = 0;
@@ -17,19 +16,12 @@ public:
       ests[i].nom = ests[i].car = ests[i].act = "";
       ests[i].edad = ests[i].sigNom = ests[i].sigCar = ests[i].sigAct = ests[i].sigEdad = 0;
     }
-    cabEst = new int[_tam + 1];
-    cabEst[0] = 1;
-    for (int i = 1; i < _tam; i++) {
-      cabEst[i] = i+1;
-    }
-    cabEst[_tam] = 0;
     tamMax = _tam;
     tam = 0;
   }
   ~MultiListaEstudiantes() {
     // delete ests;
     delete cabs;
-    delete cabEst;
   }
   void insertar(Estudiante);
   // void eliminar(string);
@@ -45,7 +37,7 @@ public:
   bool eliminar(int);
 
 private:
-  int *cabs, *cabEst;
+  int *cabs;
   Estudiante *ests;
   int tam, tamMax;
   int getPosCab(string);
@@ -314,7 +306,7 @@ void MultiListaEstudiantes::imprimir() {
   printf("---------Tabla de Datos---------\n");
   cout << "\tNombre\tCarrera\t\tAct\tEdad\tSiNom\tSiCarr\tSiAct\tSiEdad"
        << endl;
-  for (int i = 0; i < tamMax; i++) {
+  for (int i = 0; i < tam; i++) {
     cout << i + 1 << "\t" << ests[i].nom << "\t" << ests[i].car << "\t"
          << ests[i].act << "\t" << ests[i].edad << "\t" << ests[i].sigNom
          << "\t" << ests[i].sigCar << "\t" << ests[i].sigAct << "\t"
