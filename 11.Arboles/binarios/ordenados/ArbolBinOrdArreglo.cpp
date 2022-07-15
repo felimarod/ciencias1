@@ -3,6 +3,11 @@
 #ifndef ARBOLBINORDARREGLO
 #define ARBOLBINORDARREGLO
 
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
 struct nodo {
   int clave;
   int izq, der;
@@ -24,11 +29,14 @@ public:
     }
     arbol[_tam].izq = arbol[_tam].der = 0;
     tam = _tam;
+    listInorden = new Cola<int>;
+    listPreorden = new Cola<int>;
+    listPosorden = new Cola<int>;
   };
   void insertar(int dato);
   int buscarpadre(int dato, int posBus);
   void eliminar(int dato);
-  int buscar_nodo(int dato, int *p);
+  int buscar_nodo(int dato, int p);
   int getraiz() { return arbol[0].izq; }
   void inorden(int inicio);
   void preorden(int inicio);
@@ -41,7 +49,8 @@ public:
 void arBinOrdArreglo::insertar(int dato) {
   int posPadre, posAct, posLibre;
   nodo auxN;
-  if (arbol[0].der == 0) return;
+  if (arbol[0].der == 0)
+    return;
   arbol[arbol[0].der].clave = dato;
   posLibre = arbol[0].der;
   if (arbol[0].izq == 0) {
@@ -51,11 +60,15 @@ void arBinOrdArreglo::insertar(int dato) {
     while (posAct != 0) {
       posPadre = posAct;
       auxN = arbol[posAct];
-      if (dato > auxN.clave) posAct = auxN.der;
-      else if (dato < auxN.clave) posAct = auxN.izq;
+      if (dato > auxN.clave)
+        posAct = auxN.der;
+      else if (dato < auxN.clave)
+        posAct = auxN.izq;
     }
-    if (dato > arbol[posPadre].clave) arbol[posPadre].der = posLibre;
-    else if (dato < auxN.clave) arbol[posPadre].izq = posLibre;
+    if (dato > arbol[posPadre].clave)
+      arbol[posPadre].der = posLibre;
+    else if (dato < auxN.clave)
+      arbol[posPadre].izq = posLibre;
   }
   arbol[0].der = arbol[posLibre].der; // Pone la nueva posición libre
   arbol[posLibre].der = 0;            // Quita la posición que estaba guardada
@@ -74,7 +87,7 @@ void arBinOrdArreglo::imprimirNodos() {
 
 int arBinOrdArreglo::buscarpadre(int dato, int posBus) {}
 void arBinOrdArreglo::eliminar(int dato) {
-  int posPadre, posAct, posAnt, posUltIzq, posUlt;
+  int posPadre, posAct, posAnt, posUltIzq, posUlt, auxHijo;
   int hijosNodo = 0; /* Se recorre el arreglo hasta llegar al nodo con el dato */
   posAct = arbol[0].izq; /* Se obtiene la posición de la raíz */
   while (arbol[posAct].clave != dato) {
@@ -98,7 +111,10 @@ void arBinOrdArreglo::eliminar(int dato) {
       arbol[posPadre].izq =
           arbol[posAct].der != 0 ? arbol[posAct].der : arbol[posAct].izq;
   } else if (hijosNodo == 2) {
-    posAnt = posPadre, posUltIzq = posAct, posUlt = arbol[posAct].der;
+    auxHijo = arbol[arbol[0].izq].izq;
+    posAnt = posPadre;
+    posUltIzq = posAct;
+    posUlt = arbol[posAct].der;
     while (posUlt != 0) {
       posAnt = posUltIzq;
       posUltIzq = posUlt;
@@ -118,6 +134,10 @@ void arBinOrdArreglo::eliminar(int dato) {
     /* Se copian los hijos del ancestro en el lugar del decendiente */
     arbol[posUltIzq].der = arbol[posAct].der;
     arbol[posUltIzq].izq = arbol[posAct].izq;
+    if (dato == arbol[arbol[0].izq].clave) {
+      arbol[0].izq = posUltIzq;
+      arbol[posUltIzq].izq = auxHijo;
+    }
   }
   arbol[posAct].clave = 0;          /* Borra clave que tenía */
   arbol[posAct].izq = 0;            /* Pone Posición Libre */
@@ -125,9 +145,48 @@ void arBinOrdArreglo::eliminar(int dato) {
   arbol[0].der = posAct;            /* Agrega a posiciones libres */
 }
 
-int arBinOrdArreglo::buscar_nodo(int dato, int *p) {}
-void arBinOrdArreglo::inorden(int inicio) {}
-void arBinOrdArreglo::preorden(int inicio) {}
+int arBinOrdArreglo::buscar_nodo(int dato, int p) {
+  int posPadre = 0;
+  int posAux = p;
+  while (arbol[posAux].clave != dato && posAux != 0) {
+    posPadre = posAux;
+    if (dato > arbol[posAux].clave)
+      posAux = arbol[posAux].der;
+    else 
+      posAux = arbol[posAux].izq;
+  }
+  if(arbol[posAux].clave == dato) return posAux;
+  else return 0;
+}
+
+void arBinOrdArreglo::preorden(int inicio) {
+  bool visitados[tam];
+  int posAux = inicio;
+  int sigDer = 0;
+  int posMaxDer = inicio;
+  do{
+    if(!visitados[posAux]) {
+      cout << arbol[posAux].clave << "\t";
+      visitados[posAux] = true;
+    } else if(visitados[posAux]) {
+      if(!visitados[arbol[posAux].izq])
+        posAux = arbol[posAux].izq;
+    }
+    if(arbol[posAux].izq == 0 && arbol[posAux].der == 0)
+      posAux = inicio;
+  } while(sigDer != posMaxDer);
+}
+
+void arBinOrdArreglo::inorden(int inicio) {
+  //listInorden->push(9);
+  //if( listInorden->colaVacia()){
+    //cout << "La cola esta vacia" <<endl;
+  //} else 
+    //cout << "La cola NO esta vacia" <<endl;
+
+  //listInorden->push()
+}
+
 void arBinOrdArreglo::posorden(int inicio) {}
 
 #endif /* ifndef ARBOLBINORDARREGLO */

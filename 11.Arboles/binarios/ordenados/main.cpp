@@ -20,6 +20,10 @@ int main() {
   arb.eliminar(10);
   arb.eliminar(125);
   arb.eliminar(50);
+  arb.eliminar(100);
   arb.imprimirNodos();
+  //int p = 5, bus = 100;
+  //cout << "El "<< bus <<"se encuentra en la posición " << arb.buscar_nodo(bus, p) << endl;
+  //arb.preorden(arb.getraiz());
   return 0;
 }
