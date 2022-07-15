@@ -14,14 +14,18 @@ int main() {
   mon.insertar(70);
   mon.insertar(55);
   mon.insertar(45);
-  mon.imprimirArreglo(); // arb.imprimirNodos();
+  //if (mon.insertar(47))
+    //cout << "Se agrego el 47" << endl;
+  //else
+    //cout << "No se pudo agregar el número 47" << endl;
+  mon.imprimirArreglo();
   mon.atender();
-  //mon.imprimirArreglo(); // arb.imprimirNodos();
-  mon.atender();
-  //cout << "Atender: " << mon.atender() << endl;
-  //mon.imprimirArreglo(); // arb.imprimirNodos();
-  mon.insertar(80);
-  //mon.insertar(90);
-  mon.imprimirArreglo(); // arb.imprimirNodos();
+  mon.imprimirArreglo();
+  //mon.atender();
+  // cout << "Atender: " << mon.atender() << endl;
+  // mon.imprimirArreglo();
+  //mon.insertar(80);
+  // mon.insertar(90);
+  //mon.imprimirArreglo();
   return 0;
 }
