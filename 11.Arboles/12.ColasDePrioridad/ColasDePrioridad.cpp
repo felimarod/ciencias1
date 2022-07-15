@@ -6,6 +6,10 @@ using std::endl;
 #ifndef COLASDEPRIORIDAD
 #define COLASDEPRIORIDAD
 
+struct nodo {
+  int clave;
+};
+
 class monticulo {
   nodo *colas;
   int *Arr, tam;
