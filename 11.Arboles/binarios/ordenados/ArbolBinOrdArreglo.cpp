@@ -15,7 +15,6 @@ struct nodo {
 
 class arBinOrdArreglo {
   nodo *arbol;
-  Cola<int> *listInorden, *listPreorden, *listPosorden;
   int tam;
 
 public:
@@ -29,9 +28,6 @@ public:
     }
     arbol[_tam].izq = arbol[_tam].der = 0;
     tam = _tam;
-    listInorden = new Cola<int>;
-    listPreorden = new Cola<int>;
-    listPosorden = new Cola<int>;
   };
   void insertar(int dato);
   int buscarpadre(int dato, int posBus);

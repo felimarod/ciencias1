@@ -10,14 +10,20 @@ template <class T> class Pila {
 public:
   Pila(int max = 100) {
     pila = new T[max];
-    for (int i = 0; i < max; ++i)
-      pila[i] = NULL;
     p = 0;
   }
   ~Pila() { delete pila; }
   inline void meter(T v) { pila[p++] = v; }
-  inline T sacar() { return pila[--p]; }
-  inline int vacia() { return !p; }
+  inline T sacar() {
+    if (p != 0) {
+      T d = pila[--p];
+      pila[p] = NULL;
+      return d;
+    } else
+      return NULL;
+  }
+  inline T peek(){ return pila[p -1]; }
+  inline int vacia() { return p == 0; }
 };
 
 #endif
